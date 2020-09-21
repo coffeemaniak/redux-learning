@@ -1,31 +1,22 @@
 import {createStore} from "redux";
+import reducer from "./reducer";
+import {inc, dec, rnd} from './actions';
 
-const reduser = (state = 0, action) => {
-  switch(action.type) {
-    case "INC":
-      return state +1;
-    case "DEC":
-      return state - 1;
-    case "RND":
-      return state + action.value;
-    default:
-      return state;
-  }
-};
 
-const store = createStore(reduser);
+const store = createStore(reducer);
+const {dispatch} = store;
 
 document.getElementById("inc").addEventListener("click", () => {
-  store.dispatch({type: "INC"});
+  dispatch(inc());
 });
 
 document.getElementById("dec").addEventListener("click", () => {
-  store.dispatch({type: "DEC"});
+  dispatch(dec());
 });
 
 document.getElementById("rnd").addEventListener("click", () => {
-  const value = Math.floor(Math.random() * 10)
-  store.dispatch({type: "RND", value});
+  const value = Math.floor(Math.random() * 10);
+  dispatch(rnd(value));
 });
 
 const update = () => {
